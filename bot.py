@@ -1,19 +1,3 @@
-
-from aiohttp import web
-import asyncio
-
-async def handle(request):
-    return web.Response(text="Bot is running!")
-
-async def start_webserver():
-    app = web.Application()
-    app.router.add_get('/', handle)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    site = web.TCPSite(runner, '0.0.0.0', 8080)
-    await site.start()
-
-
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -224,23 +208,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    async def run():
-        from telegram.ext import ApplicationBuilder
-
-        # Start the web server in background
-        asyncio.create_task(start_webserver())
-
-        # Create the bot app
-        application = ApplicationBuilder().token(BOT_TOKEN).build()
-
-        # Add handlers here (assuming they were added below in your script)
-        # Example: application.add_handler(CommandHandler("start", start))
-
-        await application.run_polling()
-
-    asyncio.run(run())
